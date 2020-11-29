@@ -9,7 +9,12 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), IdeaModule, UserModule],
+  imports: [TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      autoLoadEntities: true,
+      synchronize: true
+  }), IdeaModule, UserModule],
   controllers: [AppController],
   providers: [AppService,
   {
